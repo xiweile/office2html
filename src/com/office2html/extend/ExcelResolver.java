@@ -1,4 +1,22 @@
-package com.doc2html;
+package com.office2html.test;
+
+import com.office2html.bean.ExcelFontInfo;
+import com.office2html.bean.HtmlTable;
+import com.office2html.bean.HtmlTableTd;
+import com.office2html.bean.HtmlTableTr;
+import com.office2html.bean.dto.*;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFPalette;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.openxml4j.util.ZipSecureFile;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.util.StringUtil;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,30 +27,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
-import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.openxml4j.util.ZipSecureFile;
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.xssf.usermodel.XSSFCellStyle;
-import org.apache.poi.xssf.usermodel.XSSFColor;
-import org.apache.poi.xssf.usermodel.XSSFFont;
-
-import com.doc2html.bean.ExcelFontInfo;
-import com.doc2html.bean.HtmlTable;
-import com.doc2html.bean.HtmlTableTd;
-import com.doc2html.bean.HtmlTableTr;
-import com.doc2html.bean.dto.DocHtmlDto;
-import com.doc2html.bean.dto.ExcelHtmlResultDto;
-import com.doc2html.bean.dto.ExcelSheetHtmlDto;
-
-public class Excel2Html implements Doc2Html {
+public class ExcelResolver {
 
 	static Workbook workBook = null;
 
-	public DocHtmlDto doc2Html(String filePath) throws IOException {
+	public ExcelResultDto toObject(String filePath) throws IOException {
 		ZipSecureFile.setMinInflateRatio(0.00000001);
 		File excelFile = new File(filePath);
 		FileInputStream fpis = new FileInputStream(excelFile);
@@ -46,7 +45,8 @@ public class Excel2Html implements Doc2Html {
 		}
 		fpis.close();
 		int sheetCount = workBook.getNumberOfSheets();
-		List<ExcelSheetHtmlDto> sheetList = new ArrayList<>(sheetCount);
+		long order = 1;
+		List<ExcelSheetDto> sheetList = new ArrayList<>(sheetCount);
 		for (int sheetIndex = 0; sheetIndex < sheetCount; sheetIndex++) {
 			Sheet sheet = workBook.getSheetAt(sheetIndex);
 
@@ -60,6 +60,7 @@ public class Excel2Html implements Doc2Html {
 				}
 				for (Cell cell : row) {
 					HtmlTableTd td = new HtmlTableTd();
+					td.setId("td_"+ order++);
 					if (cell != null) {
 						String tdText = null;
 						CellType cellType = cell.getCellType();
@@ -100,6 +101,24 @@ public class Excel2Html implements Doc2Html {
 					if (backgroudColor != null) {
 						td.setBackground(backgroudColor);
 					}
+
+					String borderTop = getCellBorder (cellStyle,"top");
+					if(borderTop!=null){
+						td.setBorderTop(borderTop);
+					}
+					String borderBottom = getCellBorder(cellStyle,"bottom");
+					if(borderBottom!=null){
+						td.setBorderBottom(borderBottom);
+					}
+					String borderLeft = getCellBorder(cellStyle,"left");
+					if(borderLeft!=null){
+						td.setBorderLeft(borderLeft);
+					}
+					String borderRight = getCellBorder(cellStyle,"right");
+					if(borderRight!=null){
+						td.setBorderRight(borderRight);
+					}
+
 
 					int height = (int) row.getHeight() / 20;
 					td.setHeight(height);
@@ -236,17 +255,16 @@ public class Excel2Html implements Doc2Html {
 				}
 			}
 
-			String html = table.toString();
 			workBook.close();
 
-			ExcelSheetHtmlDto sheetDto = new ExcelSheetHtmlDto();
+			ExcelSheetDto sheetDto = new ExcelSheetDto();
 			sheetDto.setSheetName(sheet.getSheetName());
 			sheetDto.setSheetIndex(sheetIndex);
-			sheetDto.setHtml(html);
+			sheetDto.setTable(table);
 			sheetList.add(sheetDto);
 		}
 
-		ExcelHtmlResultDto resultDto = new ExcelHtmlResultDto();
+		ExcelResultDto resultDto = new ExcelResultDto();
 		resultDto.setSheetList(sheetList);
 		resultDto.setActiveSheetIndex(workBook.getActiveSheetIndex());
 		return resultDto;
@@ -268,6 +286,76 @@ public class Excel2Html implements Doc2Html {
 			default:
 			break;
 		}
+		return result;
+	}
+
+	private static String getCellBorder(CellStyle cellStyle,String type) {
+		String result = null;
+		List<String> border = new ArrayList<>();
+
+		if (cellStyle instanceof XSSFCellStyle) {
+			XSSFCellStyle xStyle = (XSSFCellStyle) cellStyle;
+			XSSFColor xSSFColor = null;
+			BorderStyle borderEnum = BorderStyle.NONE;
+
+			switch (type){
+				case "top":
+					xSSFColor = xStyle.getTopBorderXSSFColor();
+					borderEnum = xStyle.getBorderTopEnum();
+					break;
+				case "bottom":
+					xSSFColor = xStyle.getBottomBorderXSSFColor();
+					borderEnum = xStyle.getBorderBottomEnum();
+					break;
+				case "left":
+					xSSFColor = xStyle.getLeftBorderXSSFColor();
+					borderEnum = xStyle.getBorderLeftEnum();
+					break;
+				case "right":
+					xSSFColor = xStyle.getRightBorderXSSFColor();
+					borderEnum = xStyle.getBorderRightEnum();
+					break;
+				default:
+			}
+			switch (borderEnum){
+				case  NONE :
+					border.add("none");
+					break;
+				case  THIN :
+					border.add("1px solid");
+					break;
+				default:
+			}
+
+			if (xSSFColor != null) {
+				String argbHex = xSSFColor.getARGBHex();
+				if (argbHex != null) {
+					border.add("#"+argbHex.substring(2));
+				}
+
+			}
+		} else if (cellStyle instanceof HSSFCellStyle) {
+			HSSFCellStyle xStyle = (HSSFCellStyle) cellStyle;
+			BorderStyle borderEnum = xStyle.getBorderLeftEnum();
+
+			switch (borderEnum){
+				case  NONE :
+					border.add("none");
+					break;
+				case  THIN :
+					border.add("1px solid");
+					break;
+				default:
+			}
+
+			short colorindex = xStyle.getTopBorderColor();
+			HSSFPalette palette = ((HSSFWorkbook)workBook).getCustomPalette();
+			HSSFColor hssfcolor = palette.getColor(colorindex);
+			if (hssfcolor != null) {
+				border.add("#"+hssfcolor.getHexString());
+			}
+		}
+		result = StringUtil.join(border.toArray()," ");
 		return result;
 	}
 
@@ -334,8 +422,7 @@ public class Excel2Html implements Doc2Html {
 			case  RIGHT:
 				result = "right";
 			break;
-			default:
-			break;
+				default:
 		}
 		return result;
 	}

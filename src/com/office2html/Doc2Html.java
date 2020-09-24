@@ -1,8 +1,8 @@
-package com.doc2html;
+package com.office2html;
 
 import java.io.IOException;
 
-import com.doc2html.bean.dto.DocHtmlDto;
+import com.office2html.bean.dto.DocHtmlDto;
 
 public interface Doc2Html {
 

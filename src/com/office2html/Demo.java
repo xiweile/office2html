@@ -1,8 +1,8 @@
-package com.doc2html;
+package com.office2html;
 
 import com.alibaba.fastjson.JSON;
-import com.doc2html.bean.dto.*;
-import com.doc2html.test.ExcelResolver;
+import com.office2html.bean.dto.*;
+import com.office2html.test.ExcelResolver;
 
 import java.io.IOException;
 

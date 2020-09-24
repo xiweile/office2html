@@ -1,4 +1,4 @@
-package com.doc2html;
+package com.office2html;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -15,9 +15,9 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
 
-import com.doc2html.bean.dto.DocHtmlDto;
-import com.doc2html.bean.dto.PDFHtmlResultDto;
-import com.doc2html.config.Config;
+import com.office2html.bean.dto.DocHtmlDto;
+import com.office2html.bean.dto.PDFHtmlResultDto;
+import com.office2html.config.Config;
 
 public class PDF2Html implements Doc2Html {
 
@@ -41,7 +41,7 @@ public class PDF2Html implements Doc2Html {
 			ImageIO.write(image, "JPG", new File(fileName));
 			imageList.add(fileName);
 		}
-		System.out.println("È«²¿´¦ÀíÍê±Ï£¡");
+		System.out.println("È«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½");
 
 		PDFHtmlResultDto resultDto = new PDFHtmlResultDto();
 		resultDto.setImageList(imageList);
@@ -67,7 +67,7 @@ public class PDF2Html implements Doc2Html {
 		Graphics2D gf = bImage.createGraphics();
 		gf.dispose();
 		gf = bImage.createGraphics();
-		// ´¦Àí¾â³Ý
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		gf.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 		gf.drawImage(newImage, 0, 0, width, height, null);
 		gf.dispose();

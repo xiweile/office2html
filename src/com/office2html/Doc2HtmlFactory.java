@@ -1,10 +1,10 @@
-package com.doc2html;
+package com.office2html;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.doc2html.bean.dto.DocHtmlDto;
+import com.office2html.bean.dto.DocHtmlDto;
 
 public class Doc2HtmlFactory {
 

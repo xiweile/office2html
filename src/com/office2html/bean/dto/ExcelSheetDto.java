@@ -1,6 +1,6 @@
-package com.doc2html.bean.dto;
+package com.office2html.bean.dto;
 
-import com.doc2html.bean.HtmlTable;
+import com.office2html.bean.HtmlTable;
 import lombok.Getter;
 import lombok.Setter;
 

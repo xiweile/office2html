@@ -1,4 +1,4 @@
-package com.doc2html.bean;
+package com.office2html.bean;
 
 import java.util.ArrayList;
 import java.util.List;

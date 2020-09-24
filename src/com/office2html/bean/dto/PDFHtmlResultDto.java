@@ -1,8 +1,8 @@
-package com.doc2html.bean.dto;
+package com.office2html.bean.dto;
 
 import java.util.List;
 
-public class PPTHtmlResultDto extends DocHtmlDto {
+public class PDFHtmlResultDto extends DocHtmlDto {
 
 	@Override
 	public String getHtml() {

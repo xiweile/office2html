@@ -1,4 +1,4 @@
-package com.doc2html.bean;
+package com.office2html.bean;
 
 import lombok.Getter;
 import lombok.Setter;

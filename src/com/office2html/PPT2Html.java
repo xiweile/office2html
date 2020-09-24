@@ -1,4 +1,4 @@
-package com.doc2html;
+package com.office2html;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,9 +22,9 @@ import org.apache.poi.hslf.usermodel.HSLFSlideShowImpl;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFSlide;
 
-import com.doc2html.bean.dto.DocHtmlDto;
-import com.doc2html.bean.dto.PPTHtmlResultDto;
-import com.doc2html.config.Config;
+import com.office2html.bean.dto.DocHtmlDto;
+import com.office2html.bean.dto.PPTHtmlResultDto;
+import com.office2html.config.Config;
 
 public class PPT2Html implements Doc2Html {
 
@@ -38,7 +38,7 @@ public class PPT2Html implements Doc2Html {
 				result = toImage2007(filePath);
 			}
 		}
-		System.out.println("×ª»»Íê±Ï");
+		System.out.println("×ªï¿½ï¿½ï¿½ï¿½ï¿½");
 		return result;
 	}
 
@@ -64,7 +64,7 @@ public class PPT2Html implements Doc2Html {
 			BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 			Graphics2D graphics = image.createGraphics();
 
-			// ÉèÖÃ¶ÔÏß¶ÎµÄ¾â³Ý×´±ßÔµ´¦Àí
+			// ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ß¶ÎµÄ¾ï¿½ï¿½×´ï¿½ï¿½Ôµï¿½ï¿½ï¿½ï¿½
 			graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
 			graphics.drawImage(image.getScaledInstance(width, height, Image.SCALE_SMOOTH), 0, 0, null);
@@ -108,7 +108,7 @@ public class PPT2Html implements Doc2Html {
 		for (int i = 0; i < sliderSize; i++) {
 			BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 			Graphics2D graphics = image.createGraphics();
-			// ÉèÖÃ¶ÔÏß¶ÎµÄ¾â³Ý×´±ßÔµ´¦Àí
+			// ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ß¶ÎµÄ¾ï¿½ï¿½×´ï¿½ï¿½Ôµï¿½ï¿½ï¿½ï¿½
 			graphics.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 
 			graphics.drawImage(image.getScaledInstance(width, height, Image.SCALE_SMOOTH), 0, 0, null);

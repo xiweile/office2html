@@ -1,4 +1,4 @@
-package com.doc2html.bean.dto;
+package com.office2html.bean.dto;
 
 import java.util.List;
 

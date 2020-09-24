@@ -1,13 +1,14 @@
-package com.doc2html.test;
+package com.office2html;
 
-import com.doc2html.Doc2Html;
-import com.doc2html.bean.ExcelFontInfo;
-import com.doc2html.bean.HtmlTable;
-import com.doc2html.bean.HtmlTableTd;
-import com.doc2html.bean.HtmlTableTr;
-import com.doc2html.bean.dto.DocHtmlDto;
-import com.doc2html.bean.dto.ExcelHtmlResultDto;
-import com.doc2html.bean.dto.ExcelSheetHtmlDto;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -19,16 +20,15 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.office2html.bean.ExcelFontInfo;
+import com.office2html.bean.HtmlTable;
+import com.office2html.bean.HtmlTableTd;
+import com.office2html.bean.HtmlTableTr;
+import com.office2html.bean.dto.DocHtmlDto;
+import com.office2html.bean.dto.ExcelHtmlResultDto;
+import com.office2html.bean.dto.ExcelSheetHtmlDto;
 
-public class ExcelJsonToHtml implements Doc2Html {
+public class Excel2Html implements Doc2Html {
 
 	static Workbook workBook = null;
 

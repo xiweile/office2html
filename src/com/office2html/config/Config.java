@@ -1,4 +1,4 @@
-package com.doc2html.config;
+package com.office2html.config;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,19 +35,19 @@ public class Config {
 	}
 
 	/**
-	 * ╪стьвйт╢нд╪Ч
+	 * О©╫О©╫О©╫О©╫О©╫О©╫т╢О©╫д╪О©╫
 	 * 
 	 * @return
 	 */
 	private static InputStream getInputStream() {
 
-		// ╢с╣╠г╟юЮ╪стьфВжп╪стьвйт╢
+		// О©╫с╣О©╫г╟О©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫п╪О©╫О©╫О©╫О©╫О©╫т╢
 		InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(CONFIG_PROPERTY_FILENAME);
 		if (is != null) {
 			return is;
 		}
 
-		// ╢со╣мЁюЮ╪стьфВжп╪стьвйт╢
+		// О©╫О©╫о╣мЁО©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫п╪О©╫О©╫О©╫О©╫О©╫т╢
 		is = ClassLoader.getSystemResourceAsStream(CONFIG_PROPERTY_FILENAME);
 		if (is != null) {
 			return is;

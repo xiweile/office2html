@@ -1,4 +1,4 @@
-package com.doc2html;
+package com.office2html;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,8 +14,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import fr.opensagres.poi.xwpf.converter.core.BasicURIResolver;
-import fr.opensagres.poi.xwpf.converter.core.FileImageExtractor;
 import fr.opensagres.poi.xwpf.converter.core.ImageManager;
 import fr.opensagres.poi.xwpf.converter.xhtml.XHTMLConverter;
 import fr.opensagres.poi.xwpf.converter.xhtml.XHTMLOptions;
@@ -25,9 +23,9 @@ import org.apache.poi.hwpf.usermodel.Picture;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.w3c.dom.Document;
 
-import com.doc2html.bean.dto.DocHtmlDto;
-import com.doc2html.bean.dto.WordHtmlDto;
-import com.doc2html.config.Config;
+import com.office2html.bean.dto.DocHtmlDto;
+import com.office2html.bean.dto.WordHtmlDto;
+import com.office2html.config.Config;
 
 public class Word2Html implements Doc2Html {
 
